@@ -55,22 +55,6 @@
         "chunks": [],
         "async": false
       }
-    },
-    "(app-client)/./node_modules/next/dist/client/image.js": {
-      "*": {
-        "id": "(sc_client)/./node_modules/next/dist/client/image.js",
-        "name": "*",
-        "chunks": [],
-        "async": false
-      }
-    },
-    "(app-client)/./node_modules/next/dist/shared/lib/head.js": {
-      "*": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "*",
-        "chunks": [],
-        "async": false
-      }
     }
   },
   "edgeSSRModuleMapping": {},
@@ -234,41 +218,13 @@
         "app-client-internals:static/chunks/app-client-internals.js"
       ],
       "async": false
-    },
-    "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/node_modules/next/dist/client/image.js": {
-      "id": "(app-client)/./node_modules/next/dist/client/image.js",
-      "name": "*",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
-    },
-    "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/node_modules/next/dist/esm/client/image.js": {
-      "id": "(app-client)/./node_modules/next/dist/client/image.js",
-      "name": "*",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
-    },
-    "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/node_modules/next/dist/shared/lib/head.js": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "*",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
-    },
-    "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/node_modules/next/dist/esm/shared/lib/head.js": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "*",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
     }
   },
   "entryCSSFiles": {
+    "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/src/app/page": {
+      "modules": [],
+      "files": []
+    },
     "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/src/app/layout": {
       "modules": [
         "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/src/app/globals.css",
@@ -277,10 +233,6 @@
       "files": [
         "static/css/app/layout.css"
       ]
-    },
-    "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/src/app/page": {
-      "modules": [],
-      "files": []
     }
   }
 }
