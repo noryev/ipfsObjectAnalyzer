@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 
 export default function DownloadForm() {
-    const downloadFile = (event) => {
+    const downloadFile = (event: { preventDefault: () => void; target: { cid: { value: any; }; }; }) => {
         event.preventDefault();
 
         const cid = event.target.cid.value;
