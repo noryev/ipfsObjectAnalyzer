@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+Intended to benchmark how "available" a specific IPFS object? This tool will source IPFS data from a range of different Gateways.
+
 ## Getting Started
 
 First, run the development server:
