@@ -1,12 +1,29 @@
-import Image from 'next/image';
-import DownloadForm from './DownloadForm';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-export default function Home() {
+function ClientPage() {
+  const [cid, setCid] = useState('');
+  const [data, setData] = useState(null);
+
+  const handleCidChange = (e) => {
+    setCid(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await axios.get(`https://ipfs.io/ipfs/${cid}`);
+    setData(response.data);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <DownloadForm />
-
-      {/* ... rest of your component ... */}
-    </main>
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <input type="text" onChange={handleCidChange} placeholder="Enter CID" />
+        <button type="submit">Submit</button>
+      </form>
+      {data && <div>{data}</div>}
+    </div>
   );
 }
+
+export default ClientPage;

@@ -221,6 +221,10 @@
     }
   },
   "entryCSSFiles": {
+    "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/src/app/page": {
+      "modules": [],
+      "files": []
+    },
     "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/src/app/layout": {
       "modules": [
         "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/src/app/globals.css",
@@ -229,10 +233,6 @@
       "files": [
         "static/css/app/layout.css"
       ]
-    },
-    "/Users/loganlentz/Documents/GitHub/IPFSObjectGuage/src/app/page": {
-      "modules": [],
-      "files": []
     }
   }
 }
