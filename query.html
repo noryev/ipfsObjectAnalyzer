@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="assets/img/favicon.png" type="image/x-icon">
+    <title>Leto Analytics Query</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            background-color: #2c2c2c;
+            color: #cfcfcf;
+            font-family: Arial, sans-serif;
+        }
+
+        #queryForm {
+            margin-bottom: 1em;
+        }
+
+        label,
+        input {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+
+        input[type="text"] {
+            padding: 0.5em;
+            border: 1px solid #cfcfcf;
+            border-radius: 4px;
+            background-color: #3c3c3c;
+            color: #cfcfcf;
+        }
+
+        input[type="submit"] {
+            padding: 0.5em 1em;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #response {
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Query Leto Analytics API</h1>
+    <form id="queryForm">
+        <label for="cids">Enter CIDs (comma separated):</label>
+        <input type="text" id="cids" name="cids">
+        <label for="page">Page number:</label>
+        <input type="text" id="page" name="page">
+        <label for="size">Size:</label>
+        <input type="text" id="size" name="size">
+        <input type="submit" value="Submit">
+    </form>
+    <pre id="response"></pre>
+    <script>
+        $(document).ready(function () {
+            $('#queryForm').on('submit', function (e) {
+                e.preventDefault();
+                let cidsArray = $('#cids').val().split(',').map(item => item.trim());
+                $.ajax({
+                    url: 'https://api.leto.gg/analytics',
+                    type: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Leto-Token': '<access-token>'
+                    },
+                    data: JSON.stringify({
+                        cids: cidsArray,
+                        page: parseInt($('#page').val()),
+                        size: parseInt($('#size').val())
+                    }),
+                    success: function (res) {
+                        $('#response').html(JSON.stringify(res, null, 2));
+                    },
+                    error: function (res) {
+                        $('#response').html(JSON.stringify(res, null, 2));
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
