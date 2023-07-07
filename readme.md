@@ -1,4 +1,4 @@
-#ipfsObjectAnalyzer
+# ipfsObjectAnalyzer
 
 ![ipfsObjectAnalyzerPlan](https://github.com/noryev/ipfsObjectAnalyzer/assets/30084404/5d0f6192-3f45-49e3-8a12-73ecf418cabe)
 
