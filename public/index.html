@@ -47,7 +47,7 @@
       render() {
         return (
           <div>
-            <h1>IPFS CID Benchmarking</h1>
+            <h1>IPFS CID Analyzer</h1>
             <input type="text" value={this.state.cid} onChange={this.handleCIDChange} placeholder="Content Identifier" />
             {this.state.gateways.map((gateway, index) => (
               <input key={index} type="text" value={gateway} onChange={(e) => this.handleGatewayChange(index, e)} />
