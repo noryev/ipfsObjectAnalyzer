@@ -6,7 +6,7 @@ class App extends Component {
     super(props);
     this.state = {
       cid: '',
-      gateways: ['https://ipfs.io', 'https://leto.gg', 'https://cloudflare-ipfs.com'],
+      gateways: ['https://ipfs.io', 'https://leto.gg/ipfs/', 'https://cloudflare-ipfs.com'],
       results: []
     };
   }
