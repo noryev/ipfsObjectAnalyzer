@@ -1,43 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<head>
+  <meta charset="UTF-8">
+  <title>IPFS CID Benchmarking</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          cid: '',
+          gateways: ['https://ipfs.io', 'https://cloudflare-ipfs.com'],
+          results: []
+        };
+      }
+
+      handleCIDChange = (event) => {
+        this.setState({ cid: event.target.value });
+      }
+
+      handleGatewayChange = (index, event) => {
+        const newGateways = this.state.gateways.map((gateway, idx) => idx === index ? event.target.value : gateway);
+        this.setState({ gateways: newGateways });
+      }
+
+      benchmark = async () => {
+        const results = [];
+        for (const gateway of this.state.gateways) {
+          const start = performance.now();
+          await fetch(`${gateway}/ipfs/${this.state.cid}`);
+          const end = performance.now();
+          const duration = end - start;
+          results.push({ gateway, duration });
+        }
+        this.setState({ results });
+      }
+
+      render() {
+        return (
+          <div>
+            <h1>IPFS CID Benchmarking</h1>
+            <input type="text" value={this.state.cid} onChange={this.handleCIDChange} placeholder="Content Identifier" />
+            {this.state.gateways.map((gateway, index) => (
+              <input key={index} type="text" value={gateway} onChange={(e) => this.handleGatewayChange(index, e)} />
+            ))}
+            <button onClick={this.benchmark}>Benchmark</button>
+            <ul>
+              {this.state.results.map((result, index) => (
+                <li key={index}>{result.gateway}: {result.duration}ms</li>
+              ))}
+            </ul>
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+
 </html>
