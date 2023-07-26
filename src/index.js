@@ -63,4 +63,5 @@ class App extends Component {
 
 //Start adding more gateways to retrieve from (Fleek,Lighthouse.Storage)
 
+//Move infra files out of this React App for the UI!
 ReactDOM.render(<App />, document.getElementById('root'));
