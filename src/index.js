@@ -65,5 +65,7 @@ class App extends Component {
 
 //Move infra files out of this React App for the UI!
 
+//Add gateway that you will race for retrievability
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
