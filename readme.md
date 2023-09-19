@@ -1,10 +1,18 @@
-# ipfsObjectAnalyzer
+# ipfsObjectAnalyzer WIP
 
 ![ipfsObjectAnalyzerPlan](https://github.com/noryev/ipfsObjectAnalyzer/assets/30084404/5d0f6192-3f45-49e3-8a12-73ecf418cabe)
 
 
+The primary reason for this tool is to help guage, and analyze ipfs content. Specifically being able to identify malware stored on public IPFS Gateways. This project is split into a few different parts. 
 
+0. There is some lambda code that processes the CID request. 
+1. There is a front-end found in the src folder. 
 
+The API flow within this program goes something like this: 
+
+0. An user searches a collection of public IPFS gateways for a specific IPFS CID that a user inputs. 
+1. Once the CID is requested a number of processes occurs to evaluate perameters of that IPFS object/CID. 
+2. If an IPFS CID is flagged, then it can possibly be handed to the BadBits registry. 
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
