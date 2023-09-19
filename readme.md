@@ -1,7 +1,5 @@
 # ipfsObjectAnalyzer WIP
 
-![ipfsObjectAnalyzerPlan](https://github.com/noryev/ipfsObjectAnalyzer/assets/30084404/5d0f6192-3f45-49e3-8a12-73ecf418cabe)
-
 
 The primary reason for this tool is to help guage, and analyze ipfs content. Specifically being able to identify malware stored on public IPFS Gateways. This project is split into a few different parts. 
 
