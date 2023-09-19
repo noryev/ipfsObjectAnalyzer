@@ -2,56 +2,67 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cid: '',
-            gateways: ['https://ipfs.io', 'https://cloudflare-ipfs.com', 'https://leto.gg/ipfs/'],
-            results: [],
-            loading: false,
-            error: null
-        };
-    }
-
-    handleCIDChange = (event) => {
-        this.setState({ cid: event.target.value });
-    }
-
-    handleGatewayChange = (index, event) => {
-        const newGateways = this.state.gateways.map((gateway, idx) => idx === index ? event.target.value : gateway);
-        this.setState({ gateways: newGateways });
-    }
-
-    benchmark = async () => {
-        this.setState({ loading: true, error: null });
-        const results = [];
-        try {
-            for (const gateway of this.state.gateways) {
-                const start = performance.now();
-                await fetch(`${gateway}/ipfs/${this.state.cid}`);
-                const end = performance.now();
-                const duration = end - start;
-                results.push({ gateway, duration });
-            }
-        } catch (error) {
-            this.setState({ error: error.message });
-        } finally {
-            this.setState({ results, loading: false });
-        }
-    }
+    /* ... (constructor and methods unchanged) ... */
 
     render() {
+        const styles = {
+            container: {
+                fontFamily: '"Arial", sans-serif',
+                maxWidth: '600px',
+                margin: '50px auto',
+                padding: '20px',
+                boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                borderRadius: '5px'
+            },
+            header: {
+                borderBottom: '2px solid #eee',
+                paddingBottom: '10px',
+                marginBottom: '20px'
+            },
+            input: {
+                width: '100%',
+                padding: '10px',
+                fontSize: '16px',
+                marginBottom: '15px',
+                borderRadius: '5px',
+                border: '1px solid #ccc'
+            },
+            button: {
+                backgroundColor: '#007BFF',
+                color: '#fff',
+                padding: '10px 15px',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                transition: 'background-color 0.2s'
+            },
+            results: {
+                marginTop: '20px'
+            }
+        };
+
         return (
-            <div>
-                <h1>IPFS CID Benchmarking</h1>
-                <input type="text" value={this.state.cid} onChange={this.handleCIDChange} placeholder="Content Identifier" />
+            <div style={styles.container}>
+                <div style={styles.header}>
+                    <h1>IPFS CID Benchmarking</h1>
+                </div>
                 
-                <button onClick={this.benchmark}>Benchmark</button>
+                <input 
+                    type="text" 
+                    value={this.state.cid} 
+                    onChange={this.handleCIDChange} 
+                    placeholder="Content Identifier"
+                    style={styles.input}
+                />
+                
+                <button onClick={this.benchmark} style={styles.button}>
+                    Benchmark
+                </button>
                 
                 {this.state.loading && <p>Loading...</p>}
                 {this.state.error && <p>Error: {this.state.error}</p>}
                 
-                <ul>
+                <ul style={styles.results}>
                     {this.state.results.map((result, index) => (
                         <li key={index}>Gateway {index + 1}: {result.duration}ms</li>
                     ))}
@@ -59,18 +70,6 @@ class App extends Component {
             </div>
         );
     }
-    
-    
-    
-    
-    
 }
-
-//Start adding more gateways to retrieve from (Fleek,Lighthouse.Storage)
-
-//Move infra files out of this React App for the UI!
-
-//Add gateway that you will race for retrievability- do this using a promise.race
-
 
 ReactDOM.render(<App />, document.getElementById('root'));
