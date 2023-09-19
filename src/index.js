@@ -70,7 +70,7 @@ class App extends Component {
 
 //Move infra files out of this React App for the UI!
 
-//Add gateway that you will race for retrievability
+//Add gateway that you will race for retrievability- do this using a promise.race
 
 
 ReactDOM.render(<App />, document.getElementById('root'));
