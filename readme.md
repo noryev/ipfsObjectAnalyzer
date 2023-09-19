@@ -5,8 +5,8 @@
 
 The primary reason for this tool is to help guage, and analyze ipfs content. Specifically being able to identify malware stored on public IPFS Gateways. This project is split into a few different parts. 
 
-0. There is some lambda code that processes the CID request. 
-1. There is a front-end found in the src folder. 
+/worker - Javascript code meant for a Cloudflare worker that processes a portion of the CID request. 
+/src -  Front-end built with React.
 
 The API flow within this program goes something like this: 
 
