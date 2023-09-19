@@ -45,20 +45,25 @@ class App extends Component {
             <div>
                 <h1>IPFS CID Benchmarking</h1>
                 <input type="text" value={this.state.cid} onChange={this.handleCIDChange} placeholder="Content Identifier" />
-                {this.state.gateways.map((gateway, index) => (
-                    <input key={index} type="text" value={gateway} onChange={(e) => this.handleGatewayChange(index, e)} />
-                ))}
+                
                 <button onClick={this.benchmark}>Benchmark</button>
+                
                 {this.state.loading && <p>Loading...</p>}
                 {this.state.error && <p>Error: {this.state.error}</p>}
+                
                 <ul>
                     {this.state.results.map((result, index) => (
-                        <li key={index}>{result.gateway}: {result.duration}ms</li>
+                        <li key={index}>Gateway {index + 1}: {result.duration}ms</li>
                     ))}
                 </ul>
             </div>
         );
     }
+    
+    
+    
+    
+    
 }
 
 //Start adding more gateways to retrieve from (Fleek,Lighthouse.Storage)
