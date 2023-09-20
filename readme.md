@@ -12,7 +12,6 @@ The API flow within this program goes something like this:
 1. Once the CID is requested a number of processes occurs to evaluate perameters of that IPFS object/CID. 
 2. If an IPFS CID is flagged, then it can possibly be handed to the BadBits registry. 
 
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
