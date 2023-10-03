@@ -97,10 +97,12 @@
             const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ cid: cid })
+            'Content-Type': 'application/json',
+    },
+         body: JSON.stringify({ cid: theCidValue }),
             });
+
+
             const data = await response.json();
 
             // Update the progress bar and message based on the response

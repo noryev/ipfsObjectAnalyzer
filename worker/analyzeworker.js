@@ -21,12 +21,10 @@ async function handleRequest(request) {
 
     // Check for valid response from IPFS gateway
     if (!ipfsResponse.ok) {
-      return new Response(JSON.stringify({ 
-        progress: 0, 
-        message: `Failed to retrieve IPFS object for CID: ${cid}` 
-      }), {
-        status: 400
-      });
+      return newResponse({
+        progress: 0,
+        message: `Failed to retrieve IPFS object for CID: ${cid}`
+      }, 400);
     }
 
     // Get the data and analyze (for this example, we'll just get its size)
@@ -34,17 +32,24 @@ async function handleRequest(request) {
     const dataSize = ipfsData.length;
 
     // Respond with some information (here, just the size)
-    return new Response(JSON.stringify({
+    return newResponse({
       progress: 100,
       message: `IPFS object size for CID ${cid}: ${dataSize} bytes`
-    }), {
-      headers: { 'Content-Type': 'application/json' }
-      
     });
   }
 
   // If not a POST request or other conditions aren't met
-  return new Response(responseBody, {
+  return new Response("Method not allowed", { status: 405 });
+}
+
+/**
+ * Create a new response with CORS headers
+ * @param {Object} body - The JSON response body
+ * @param {number} [status=200] - HTTP status code
+ */
+function newResponse(body, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status: status,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
