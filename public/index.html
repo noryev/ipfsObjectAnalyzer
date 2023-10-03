@@ -7,34 +7,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPFS CID Processor</title>
     <style>
-        #progress-container {
-            width: 100%;
-            background-color: #f3f3f3;
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f6f7fb;
+        }
+
+        #app-container {
+            padding: 40px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        #cid-input {
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
             margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #progress-container {
+            width: 80%;
+            background-color: #f3f3f3;
+            margin: 20px auto;
+            border-radius: 5px;
         }
 
         #progress-bar {
             width: 0;
             height: 30px;
             background-color: #4CAF50;
+            border-radius: 4px;
         }
 
         #message {
             margin-top: 20px;
+            color: #333;
         }
     </style>
 </head>
 
 <body>
 
-    <input type="text" id="cid-input" placeholder="Enter IPFS CID">
-    <button onclick="processCID()">Process CID</button>
+    <div id="app-container">
+        <h2>IPFS Object Analyzer</h2>
+        <input type="text" id="cid-input" placeholder="Enter IPFS CID">
+        <button onclick="processCID()">Process CID</button>
 
-    <div id="progress-container">
-        <div id="progress-bar"></div>
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div id="message"></div>
     </div>
-
-    <div id="message"></div>
 
     <script>
         async function processCID() {
