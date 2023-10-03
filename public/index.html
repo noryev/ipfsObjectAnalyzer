@@ -94,7 +94,7 @@
             }
 
             // Send the CID to the Cloudflare Worker
-            const response = await fetch('https://your.cloudflare.worker.url/process', {
+            const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
