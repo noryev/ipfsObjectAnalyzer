@@ -39,9 +39,17 @@ async function handleRequest(request) {
       message: `IPFS object size for CID ${cid}: ${dataSize} bytes`
     }), {
       headers: { 'Content-Type': 'application/json' }
+      
     });
   }
 
   // If not a POST request or other conditions aren't met
-  return new Response("Method not allowed", { status: 405 });
+  return new Response(responseBody, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    }
+  });
 }
