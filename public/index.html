@@ -86,7 +86,7 @@
     </div>
 
     <script>
-        async function processCID() {
+       async function processCID() {
     const cid = document.getElementById('cid-input').value;
     if (!cid) {
         alert("Please enter a valid IPFS CID.");
@@ -99,20 +99,34 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'CID': cid  // Send the actual CID value from the input
+                'CID': cid
             },
             body: JSON.stringify({ cid }),
-            credentials: 'include' // This ensures cookies are sent and matches 'Access-Control-Allow-Credentials' from your worker
+            credentials: 'include'
         });
 
-        // Handle the response here...
-        // e.g., update your progress bar, display a message, etc.
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
         const data = await response.json();
-        // Process the data as per your requirements...
+
+        // Assuming the data object contains a 'progress' and 'message' field
+        // Update the progress bar and message based on the response
+        const progressBar = document.getElementById('progress-bar');
+        const messageDiv = document.getElementById('message');
+
+        if (data.progress) {
+            progressBar.style.width = data.progress + "%";
+        }
+
+        if (data.message) {
+            messageDiv.textContent = data.message;
+        }
 
     } catch (error) {
         console.error("There was an error:", error);
+        // Optionally show the error to the user
+        document.getElementById('message').textContent = "Error: " + error.message;
     }
 }
-
-
