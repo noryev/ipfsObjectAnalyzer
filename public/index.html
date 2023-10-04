@@ -95,27 +95,18 @@
 
             // Send the CID to the Cloudflare Worker
             const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/', {
-                method: 'POST',
-                headers: {
-            'Content-Type': 'application/json',
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Your-Custom-Header': 'YourValue' // This is the custom header you've allowed in your worker
     },
-         body: JSON.stringify({ cid }),
-            });
+    body: JSON.stringify({ cid }),
+    credentials: 'include' // This ensures cookies are sent and matches 'Access-Control-Allow-Credentials' from your worker
+});
 
-
-            const data = await response.json();
-
-            // Update the progress bar and message based on the response
-            const progressBar = document.getElementById('progress-bar');
-            const messageDiv = document.getElementById('message');
-
-            progressBar.style.width = data.progress + "%";
-            messageDiv.textContent = data.message || "";
+            
         }
     </script>
 
 </body>
 
-</html>
-response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Your-Custom-Header');
-response.headers.set('Access-Control-Allow-Credentials', 'true');
