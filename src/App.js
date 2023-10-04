@@ -14,7 +14,7 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ cid }),
-        mode: 'no-cors'  // Set mode to 'no-cors'
+     
       });
 
       if (!response.ok) {
@@ -34,7 +34,7 @@ function App() {
       // The bit of code that makes sure cors doesnt give AF... 'no-cors' subject the server to no cors protection. 
 
       const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/ping', {
-        mode: 'no-cors'  // Set mode to 'no-cors'
+         // Set mode to 'no-cors'
       });
 
       // Never forget this code that makes CORS not give AF!
