@@ -88,7 +88,7 @@
     <script>
         async function processCID() {
             const cid = document.getElementById('cid-input').value;
-            if (!theCidValue) {
+            if (!cid) {
                 alert("Please enter a valid IPFS CID.");
                 return;
             }
@@ -99,7 +99,7 @@
                 headers: {
             'Content-Type': 'application/json',
     },
-         body: JSON.stringify({ cid: theCidValue }),
+         body: JSON.stringify({ cid }),
             });
 
 
