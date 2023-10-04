@@ -1,60 +1,75 @@
-// Define the IPFS gateway URL
+import { render } from "@testing-library/react";
+
 const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
 
-// Define the main event listener for the Fetch event
 addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
+  event.respondWith(handleRequest(event.request));
 });
 
-/**
- * Respond to the request
- * @param {Request} request
- */
 async function handleRequest(request) {
-  // Check if the request method is POST and process the data
+  const url = new URL(request.url);
+
+  // Checking for the ping endpoint first
+  if (url.pathname === '/ping') {
+    return new Response('pong');
+  }
+
+
+
+  // This guy is going to fuck a whole bunch of shit up.... Come and Take em? 
+
+  
   if (request.method === "POST") {
-    // Extract the CID from the incoming POST data
-    const { cid } = await request.json();
-
-    // Fetch the IPFS object
-    const ipfsResponse = await fetch(`${IPFS_GATEWAY}${cid}`);
-
-    // Check for valid response from IPFS gateway
-    if (!ipfsResponse.ok) {
+    let data;
+    try {
+      data = await request.json();
+    } catch (err) {
       return newResponse({
         progress: 0,
-        message: `Failed to retrieve IPFS object for CID: ${cid}`
+        message: "Invalid JSON payload provided."
       }, 400);
     }
 
-    // Get the data and analyze (for this example, we'll just get its size)
+    // Validate CID presence
+    if (!data.cid) {
+      return newResponse({
+        progress: 0,
+        message: "CID not provided in the request."
+      }, 400);
+    }
+
+    const ipfsResponse = await fetch(`${IPFS_GATEWAY}${data.cid}`);
+
+    if (!ipfsResponse.ok) {
+      return newResponse({
+        progress: 0,
+        message: `Failed to retrieve IPFS object for CID: ${data.cid}`
+      }, 400);
+    }
+
     const ipfsData = await ipfsResponse.text();
     const dataSize = ipfsData.length;
 
-    // Respond with some information (here, just the size)
     return newResponse({
       progress: 100,
-      message: `IPFS object size for CID ${cid}: ${dataSize} bytes`
+      message: `IPFS object size for CID ${data.cid}: ${dataSize} bytes`
     });
   }
 
-  // If not a POST request or other conditions aren't met
   return new Response("Method not allowed", { status: 405 });
 }
 
-/**
- * Create a new response with CORS headers
- * @param {Object} body - The JSON response body
- * @param {number} [status=200] - HTTP status code
- */
 function newResponse(body, status = 200) {
-  return new Response(JSON.stringify(body), {
+  const response = new Response(JSON.stringify(body), {
     status: status,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    }
+    },
   });
+
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+
+  return response;
 }
