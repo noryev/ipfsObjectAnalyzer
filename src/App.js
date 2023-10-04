@@ -14,6 +14,7 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ cid }),
+        mode: 'no-cors'  // Set mode to 'no-cors'
       });
 
       if (!response.ok) {
@@ -29,9 +30,15 @@ function App() {
 
   async function pingWorker() {
     try {
-      const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/ping');
-      const text = await response.text();
-      setWorkerResponse(text);
+      const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/ping', {
+        mode: 'no-cors'  // Set mode to 'no-cors'
+      });
+      
+      if (response.status !== 0) {  // no-cors mode responses have an "opaque" status of 0
+        throw new Error(`Unexpected status: ${response.status}`);
+      }
+
+      setWorkerResponse('Ping successful, but response is opaque due to no-cors mode');
     } catch (error) {
       setWorkerResponse('Error connecting to worker');
     }
