@@ -5,79 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPFS CID Analyzer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f6f7fb;
-        }
 
-        #app-container {
-            padding: 40px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        #cid-input {
-            padding: 10px;
-            width: 80%;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            margin-top: 20px;
-        }
-
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.2s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #progress-container {
-            width: 80%;
-            background-color: #f3f3f3;
-            margin: 20px auto;
-            border-radius: 5px;
-        }
-
-        #progress-bar {
-            width: 0;
-            height: 30px;
-            background-color: #4CAF50;
-            border-radius: 4px;
-        }
-
-        #message {
-            margin-top: 20px;
-            color: #333;
-        }
-    </style>
 </head>
 
 <body>
     
     <div id="app-container">
-        <h2>IPFS Object Analyzer</h2>
-        <input type="text" id="cid-input" placeholder="Enter IPFS CID">
 
-        <button onclick="processCID()">AnalyzeCID</button>
+
+       
+    
+
+    </button><div id="root"></div>
 
 
 
@@ -91,73 +30,5 @@
         <div id="message"></div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
 
-    <script>
-       async function processCID() {
-    const cid = document.getElementById('cid-input').value;
-    if (!cid) {
-        alert("Please enter a valid IPFS CID.");
-        return;
-    }
-
-    try {
-        const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'CID': cid
-            },
-            body: JSON.stringify({ cid }),
-            credentials: 'include'
-        });
-
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-
-        const data = await response.json();
-
-        // Assuming the data object contains a 'progress' and 'message' field
-        // Update the progress bar and message based on the response
-        const progressBar = document.getElementById('progress-bar');
-        const messageDiv = document.getElementById('message');
-
-        if (data.progress) {
-            progressBar.style.width = data.progress + "%";
-        }
-
-        if (data.message) {
-            messageDiv.textContent = data.message;
-        }
-
-    } catch (error) {
-        console.error("There was an error:", error);
-        // Optionally show the error to the user
-        document.getElementById('message').textContent = "Error: " + error.message;
-    }
-}
-
-async function pingWorker() {
-    try {
-        const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/ping');
-        
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-
-        const data = await response.text();
-
-        if (data === 'pong') {
-            alert('Successfully connected to the worker!');
-        } else {
-            alert('Received unexpected response from worker: ' + data);
-        }
-
-    } catch (error) {
-        console.error("There was an error:", error);
-        alert('Failed to connect to the worker. Error: ' + error.message);
-    }
-
-    
-}

@@ -29,14 +29,14 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <h1>IPFS CID Processor</h1>
+        <h1>IPFS CID Analyzer</h1>
         <input
           type="text"
           placeholder="Enter IPFS CID"
           value={cid}
           onChange={e => setCid(e.target.value)}
         />
-        <button onClick={processCID}>Process CID</button>
+        <button onClick={processCID}>Analyze CID</button>
         <div className="progress" style={{ width: `${message.includes('100') ? 100 : 0}%` }}></div>
         <p>{message}</p>
       </div>
