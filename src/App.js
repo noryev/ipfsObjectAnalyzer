@@ -59,8 +59,7 @@ function App() {
         <div className="progress" style={{ width: `${message.includes('100') ? 100 : 0}%` }}></div>
         <p>{message}</p>
         { contentType && <p>Content Type: {contentType}</p> }  {/* Display content type if available */}
-        <button onClick={pingWorker}>Ping Worker</button>
-        <p>Worker says: {workerResponse}</p>
+     
       </div>
     </div>
   );
