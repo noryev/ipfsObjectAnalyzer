@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [cid, setCid] = useState(''); // To store the CID from the input
-  const [message, setMessage] = useState(''); // To store messages or results from the worker
-  const [workerResponse, setWorkerResponse] = useState(''); // To store the response from pinging the worker
+  const [cid, setCid] = useState('');
+  const [message, setMessage] = useState('');
+  const [workerResponse, setWorkerResponse] = useState('');
+  const [contentType, setContentType] = useState('');  // New state for content type
 
   async function processCID() {
     try {
@@ -14,7 +15,6 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ cid }),
-     
       });
 
       if (!response.ok) {
@@ -23,6 +23,9 @@ function App() {
 
       const result = await response.json();
       setMessage(result.message);
+      if (result.contentType) {   // If content type is available in response
+        setContentType(result.contentType);
+      }
     } catch (error) {
       setMessage(`Error: ${error.message}`);
     }
@@ -30,16 +33,9 @@ function App() {
 
   async function pingWorker() {
     try {
+      const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/ping');
 
-      // The bit of code that makes sure cors doesnt give AF... 'no-cors' subject the server to no cors protection. 
-
-      const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/ping', {
-         // Set mode to 'no-cors' 
-      });
-
-      // Never forget this code that makes CORS not give AF!
-      
-      if (response.status !== 0) {  // no-cors mode responses have an "opaque" status of 0
+      if (response.status !== 0) {
         throw new Error(`Unexpected status: ${response.status}`);
       }
 
@@ -62,6 +58,7 @@ function App() {
         <button onClick={processCID}>Analyze CID</button>
         <div className="progress" style={{ width: `${message.includes('100') ? 100 : 0}%` }}></div>
         <p>{message}</p>
+        { contentType && <p>Content Type: {contentType}</p> }  {/* Display content type if available */}
         <button onClick={pingWorker}>Ping Worker</button>
         <p>Worker says: {workerResponse}</p>
       </div>
