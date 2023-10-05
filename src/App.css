@@ -61,12 +61,7 @@ button:hover {
   background-color: #0056b3;
 }
 
-#progress-container {
-  width: 80%;
-  background-color: #f3f3f3;
-  margin: 20px auto;
-  border-radius: 5px;
-}
+
 
 #progress-bar {
   width: 0;

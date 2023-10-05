@@ -42,7 +42,7 @@ function App() {
           onChange={e => setCid(e.target.value)}
         />
         <button onClick={processCID}>Analyze CID</button>
-        <div className="progress" style={{ width: `${message.includes('100') ? 100 : 0}%` }}></div>
+        
         <p>{message}</p>
         { contentType && <p>Content Type: {contentType}</p> }  {/* Display content type if available */}
      
