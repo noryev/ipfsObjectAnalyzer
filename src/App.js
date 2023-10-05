@@ -4,7 +4,6 @@ import './App.css';
 function App() {
   const [cid, setCid] = useState('');
   const [message, setMessage] = useState('');
-  const [workerResponse, setWorkerResponse] = useState('');
   const [contentType, setContentType] = useState('');  // New state for content type
 
   async function processCID() {
@@ -31,19 +30,6 @@ function App() {
     }
   }
 
-  async function pingWorker() {
-    try {
-      const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/ping');
-
-      if (response.status !== 0) {
-        throw new Error(`Unexpected status: ${response.status}`);
-      }
-
-      setWorkerResponse('Ping successful, but response is opaque due to no-cors mode');
-    } catch (error) {
-      setWorkerResponse('Error connecting to worker');
-    }
-  }
 
   return (
     <div className="App">
