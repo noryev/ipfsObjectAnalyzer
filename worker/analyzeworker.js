@@ -1,6 +1,4 @@
-import { render } from "@testing-library/react";
-
-const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
+const IPFS_GATEWAY = 'https://leto.gg/ipfs/';
 
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
@@ -9,16 +7,20 @@ addEventListener('fetch', event => {
 async function handleRequest(request) {
   const url = new URL(request.url);
 
-  // Checking for the ping endpoint first
-  if (url.pathname === '/ping') {
-    return new Response('pong');
+  // Handle preflight CORS request
+  if (request.method === "OPTIONS") {
+    return newResponse({}, 200);
   }
 
+  // Handle ping request
+  if (url.pathname === '/ping') {
+    return new Response('pong', {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  }
 
-
-  // This guy is going to fuck a whole bunch of shit up.... Come and Take em? 
-
-  
   if (request.method === "POST") {
     let data;
     try {
@@ -49,14 +51,16 @@ async function handleRequest(request) {
 
     const ipfsData = await ipfsResponse.text();
     const dataSize = ipfsData.length;
+    const contentType = ipfsResponse.headers.get('Content-Type');  // Extract content type from the response headers
 
     return newResponse({
       progress: 100,
-      message: `IPFS object size for CID ${data.cid}: ${dataSize} bytes`
+      message: `IPFS object size for CID ${data.cid}: ${dataSize} bytes`,
+      contentType: contentType  // Return the extracted content type in the response to the client
     });
   }
 
-  return new Response("Method not allowed", { status: 405 });
+  return newResponse({ message: "Method not allowed" }, 405);
 }
 
 function newResponse(body, status = 200) {
@@ -67,6 +71,7 @@ function newResponse(body, status = 200) {
     },
   });
 
+  // Set CORS headers
   response.headers.set('Access-Control-Allow-Origin', '*');
   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
