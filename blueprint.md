@@ -1,5 +1,3 @@
-The concept you've introduced is an IPFS CID Inspector, a tool to determine the availability and safety of an IPFS object across multiple gateways. Let's break down its design and potential features:
-
 ### Naming
 **IPFS CID Inspector**: The name is self-explanatory. "IPFS" refers to the InterPlanetary File System, a decentralized file storage system. "CID" stands for Content Identifier, which is a unique hash used in IPFS to reference content. "Inspector" suggests the tool's function of examining or investigating the CID.
 
