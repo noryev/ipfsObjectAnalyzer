@@ -5,15 +5,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f6f7fb;
+  background-color: #1a1a1d;
 }
 
 .App {
   text-align: center;
   width: 70%; /* Increase box width */
   max-width: 800px; /* Set a max-width for responsiveness */
-  background-color: #fff;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background-color: #2e2e30;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 40px;
 }
@@ -42,37 +42,37 @@ input {
   padding: 10px;
   width: 80%;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid #555;
   margin-top: 20px;
+  background-color: #333;
+  color: #f6f7fb;
 }
 
 button {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #ffe285;
-  color: #fff;
+  background-color: #454548;
+  color: #f6f7fb;
   cursor: pointer;
   margin-top: 20px;
   transition: background-color 0.2s;
 }
 
 button:hover {
-  background-color: #ffd5ae;
+  background-color: #59595b;
 }
-
-
 
 #progress-bar {
   width: 0;
   height: 30px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border-radius: 4px;
 }
 
 #message {
   margin-top: 20px;
-  color: #333;
+  color: #f6f7fb;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -91,6 +91,7 @@ button:hover {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
