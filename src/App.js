@@ -49,7 +49,7 @@ function App() {
         
         <p>{message}</p>
         { contentType && <p>Content Type: {contentType}</p> }  {/* Display content type if available */}
-        { responseTime !== null && <p>Response Time: {responseTime} ms</p> }  {/* Display response time if available */}
+        { responseTime !== null && <p> HTTP Gateway Response Time: {responseTime} ms</p> }  {/* Display response time if available */}
       </div>
     </div>
   );
