@@ -4,7 +4,8 @@ import './App.css';
 function App() {
   const [cid, setCid] = useState('');
   const [message, setMessage] = useState('');
-  const [contentType, setContentType] = useState('');  // New state for content type
+  const [contentType, setContentType] = useState('');  // State for content type
+  const [responseTime, setResponseTime] = useState(null);  // New state for response time
 
   async function processCID() {
     try {
@@ -25,13 +26,15 @@ function App() {
       if (result.contentType) {   // If content type is available in response
         setContentType(result.contentType);
       }
+      if (result.responseTime) {  // If responseTime is available in response
+        setResponseTime(result.responseTime);
+      }
     } catch (error) {
       setMessage(`Error: ${error.message}`);
     }
   }
 
   return (
-   
     <div className="App">
       <div className="container">
         <h1>IPFS CID Analyzer</h1>
@@ -46,7 +49,7 @@ function App() {
         
         <p>{message}</p>
         { contentType && <p>Content Type: {contentType}</p> }  {/* Display content type if available */}
-     
+        { responseTime !== null && <p>Response Time: {responseTime} ms</p> }  {/* Display response time if available */}
       </div>
     </div>
   );
