@@ -7,6 +7,10 @@ function App() {
   const [contentType, setContentType] = useState('');  // State for content type
   const [responseTime, setResponseTime] = useState(null);  // New state for response time
 
+
+  // Add the AWS Cognito Login to route into this UI
+
+
   async function processCID() {
     try {
       const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/', {
@@ -46,10 +50,10 @@ function App() {
           onChange={e => setCid(e.target.value)}
         />
         <button onClick={processCID}>Analyze CID</button>
-        
+
         <p>{message}</p>
-        { contentType && <p>Content Type: {contentType}</p> }  {/* Display content type if available */}
-        { responseTime !== null && <p> HTTP Gateway Response Time: {responseTime} ms</p> }  {/* Display response time if available */}
+        {contentType && <p>Content Type: {contentType}</p>}  {/* Display content type if available */}
+        {responseTime !== null && <p> HTTP Gateway Response Time: {responseTime} ms</p>}  {/* Display response time if available */}
       </div>
     </div>
   );
