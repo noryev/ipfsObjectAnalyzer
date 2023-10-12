@@ -1,4 +1,4 @@
-const IPFS_GATEWAY = 'https://leto.gg/ipfs/';
+const IPFS_GATEWAY = 'https://leto.gg/ipfs/';  
 
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
@@ -40,7 +40,11 @@ async function handleRequest(request) {
       }, 400);
     }
 
+    const startTime = Date.now(); // Capture the current time before making the fetch request
     const ipfsResponse = await fetch(`${IPFS_GATEWAY}${data.cid}`);
+    const endTime = Date.now(); // Capture the current time after receiving the response
+
+    const responseTime = endTime - startTime; // Calculate the response time in milliseconds
 
     if (!ipfsResponse.ok) {
       return newResponse({
@@ -56,7 +60,8 @@ async function handleRequest(request) {
     return newResponse({
       progress: 100,
       message: `IPFS object size for CID ${data.cid}: ${dataSize} bytes`,
-      contentType: contentType  // Return the extracted content type in the response to the client
+      contentType: contentType,  // Return the extracted content type in the response to the client
+      responseTime: responseTime  // Return the response time in the response
     });
   }
 
