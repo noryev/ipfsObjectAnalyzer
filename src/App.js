@@ -8,9 +8,6 @@ function App() {
   const [responseTime, setResponseTime] = useState(null);  // New state for response time
 
 
-  // Add the AWS Cognito Login to route into this UI
-
-
   async function processCID() {
     try {
       const response = await fetch('https://worker-ipfs-analyze.deanlaughing.workers.dev/', {
