@@ -11,8 +11,8 @@ The API flow within this program goes something like this:
 
 0. An user searches a collection of public IPFS gateways for a specific IPFS CID that a user inputs. 
 1. Once the CID is requested a number of processes occurs to evaluate perameters of that IPFS object/CID. 
-2. If an IPFS CID is flagged, then it can possibly be handed to the BadBits registry. 
-
+2. Information is passed to user once processes occur.
+   
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
